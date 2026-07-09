@@ -135,7 +135,7 @@ module.exports = grammar({
     preproc_def: $ => seq(
       preprocessor('define'),
       field('name', $.identifier),
-      field('value', optional($.preproc_arg)),
+      field('value', repeat($.preproc_arg)),
       token.immediate(/\r?\n/),
     ),
 
@@ -143,7 +143,7 @@ module.exports = grammar({
       preprocessor('define'),
       field('name', $.identifier),
       field('parameters', $.preproc_params),
-      field('value', optional($.preproc_arg)),
+      field('value', repeat($.preproc_arg)),
       token.immediate(/\r?\n/),
     ),
 
@@ -153,7 +153,7 @@ module.exports = grammar({
 
     preproc_call: $ => seq(
       field('directive', $.preproc_directive),
-      field('argument', optional($.preproc_arg)),
+      field('argument', repeat($.preproc_arg)),
       token.immediate(/\r?\n/),
     ),
 

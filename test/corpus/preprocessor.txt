@@ -447,3 +447,40 @@ uint32_t a;
     (declaration
       (primitive_type)
       (identifier))))
+
+================================================================================
+Macro definitions with comments between value tokens
+================================================================================
+
+#define NINE a /* embedded */ b
+#define TEN(x)   \
+  do {           \
+    f(x);        \
+    /*comment*/; \
+  } while (0)
+
+void after(void) {}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (preproc_def
+    (identifier)
+    (preproc_arg)
+    (comment)
+    (preproc_arg))
+  (preproc_function_def
+    (identifier)
+    (preproc_params
+      (identifier))
+    (preproc_arg)
+    (comment)
+    (preproc_arg))
+  (function_definition
+    (primitive_type)
+    (function_declarator
+      (identifier)
+      (parameter_list
+        (parameter_declaration
+          (primitive_type))))
+    (compound_statement)))
